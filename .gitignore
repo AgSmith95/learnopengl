@@ -1,0 +1,7 @@
+# ignore libs
+libs/glfw/
+
+# CLion
+.idea/
+cmake-build-debug/
+
