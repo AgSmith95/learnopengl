@@ -1,16 +1,12 @@
-FILE(GLOB CPP_FILES *.cpp)
-FILE(GLOB HPP_FILES *.hpp)
-FILE(GLOB C_FILES *.c)
-FILE(GLOB H_FILES *.h)
-
 set(EXECUTABLE learnopengl)
+
+include_directories(include)
 
 add_executable(
         ${EXECUTABLE}
-        ${CPP_FILES}
-        ${HPP_FILES}
-        ${C_FILES}
-        ${H_FILES}
+        main.cpp
+        src/callbacks.cpp
+        src/helpers.cpp
 )
 
 target_link_libraries(
