@@ -3,10 +3,6 @@
 Here I'll try to follow this tutorials: https://learnopengl.com/
 but in linux and with CMake
 
+**GIT required**
 
-before building, run following command:
-```
-git clone -b 3.3-stable https://github.com/glfw/glfw libs/glfw
-```
-it is sorta important
-
+CMake is configured to clone glfw 3.3-stable 0ac01338 into ./libs/glfw/

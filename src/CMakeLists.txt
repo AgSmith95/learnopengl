@@ -3,14 +3,7 @@ FILE(GLOB HPP_FILES *.hpp)
 FILE(GLOB C_FILES *.c)
 FILE(GLOB H_FILES *.h)
 
-get_property(
-        incdir
-        DIRECTORY
-        PROPERTY INCLUDE_DIRECTORIES
-)
-message("SRC: " ${incdir})
-
-set(EXECUTABLE opengl-tutorials)
+set(EXECUTABLE learnopengl)
 
 add_executable(
         ${EXECUTABLE}
