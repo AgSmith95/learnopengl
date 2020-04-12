@@ -2,11 +2,16 @@ set(EXECUTABLE learnopengl)
 
 include_directories(include)
 
+FILE(
+        GLOB
+        SRC_DIR_CPP_FILES
+        "src/*.cpp"
+)
+
 add_executable(
         ${EXECUTABLE}
         main.cpp
-        src/callbacks.cpp
-        src/helpers.cpp
+        ${SRC_DIR_CPP_FILES}
 )
 
 target_link_libraries(
