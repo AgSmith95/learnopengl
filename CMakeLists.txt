@@ -3,7 +3,7 @@ project(learnopengl)
 
 set(CMAKE_CXX_STANDARD 17)
 
-#find_package(OpenGL REQUIRED)
+find_package(OpenGL 3.3 REQUIRED)
 
 set(
         LIBS_DIR
