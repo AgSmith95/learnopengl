@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cmath>
 
 #include <glad/glad.h> // WARNING! INCLUDE BEFORE GLFW!!!
 #include <GLFW/glfw3.h>
@@ -6,6 +7,25 @@
 #include <helpers.h>
 
 #include <Wrapper.h>
+
+// define vertex shader code
+const char* vertexShaderSource = R"(
+#version 330 core
+layout (location = 0) in vec3 aPos;
+void main()
+{
+    gl_Position = vec4(aPos, 1.0);
+})";
+
+// define fragment shader code
+const char* fragmentShaderSource = R"(
+#version 330 core
+out vec4 FragColor;
+uniform vec4 ourColor;
+void main()
+{
+    FragColor = ourColor;
+})";
 
 int main()
 {
@@ -71,15 +91,6 @@ int main()
     int  success;
     char infoLog[512];
     // VERTEX SHADER
-    // define
-    const char* vertexShaderSource =
-        "#version 330 core\n"
-        "layout (location = 0) in vec3 aPos;\n"
-        "void main()\n"
-        "{\n"
-        "    gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
-        "}\0"
-        ;
     // create
     unsigned int vertexShader = glCreateShader(GL_VERTEX_SHADER);
     // compile
@@ -96,17 +107,8 @@ int main()
     // VERTEX SHADER end
 
     // FRAGMENT SHADER
-    // define
-    unsigned int fragmentShader;
-    const char* fragmentShaderSource =
-        "#version 330 core\n"
-        "out vec4 FragColor;\n"
-        "void main() {\n"
-        "    FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
-        "}\n"
-        ;
     // create
-    fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+    unsigned int fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
     // compile
     glShaderSource(fragmentShader, 1, &fragmentShaderSource, nullptr);
     glCompileShader(fragmentShader);
@@ -122,8 +124,7 @@ int main()
 
     // SHADER PROGRAM - linked shaders
     // create
-    unsigned int shaderProgram;
-    shaderProgram = glCreateProgram();
+    unsigned int shaderProgram = glCreateProgram();
     // attach shaders
     glAttachShader(shaderProgram, vertexShader);
     glAttachShader(shaderProgram, fragmentShader);
@@ -144,6 +145,10 @@ int main()
     glDeleteShader(vertexShader);
     glDeleteShader(fragmentShader);
 
+    // tmp values
+    double timeValue = 0.0f;
+    double greenValue = 0.0f;
+    int vertexColorLocation = -1;
     // RENDER LOOP
     while(!glfwWindowShouldClose(window()))
     {
@@ -153,13 +158,21 @@ int main()
         // render
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
+
         // use our shader
         glUseProgram(shaderProgram);
+
+        // update the uniform color
+        timeValue = glfwGetTime();
+        greenValue = sin(timeValue) / 2.0f + 0.5f;
+        vertexColorLocation = glGetUniformLocation(shaderProgram, "ourColor");
+        glUniform4f(vertexColorLocation, 0.0f, greenValue, 1.0f - greenValue, 1.0f);
+
         // as we only have a single VAO there's no need to bind it every time,
         // but we'll do so to keep things a bit more organized
         glBindVertexArray(VAO);
         //glDrawArrays(GL_TRIANGLES, 0, 6); // drawing triangles
-        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
+        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr); // drawing elements
         // glBindVertexArray(0); // no need to unbind it every time
         glBindVertexArray(0);
         // render end
