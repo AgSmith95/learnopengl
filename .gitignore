@@ -2,7 +2,7 @@
 build/
 
 # ignore libs
-libs/glfw/
+external_libs/glfw/
 
 # CLion
 .idea/
