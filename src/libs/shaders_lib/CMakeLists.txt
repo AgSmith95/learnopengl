@@ -4,25 +4,25 @@ FILE(
         "src/*.cpp"
 )
 
-# library for helpers
+# library for shaders
 add_library(
-        learnopengl_helpers
+        shaders_lib
         ${SRC_DIR_CPP_FILES}
 )
 target_link_libraries(
-        learnopengl_helpers
+        shaders_lib
         OpenGL::GL
         glfw
         glad
 )
 target_include_directories(
-        learnopengl_helpers
+        shaders_lib
         PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
         PRIVATE src
 )
 
 if(MSVC)
-    target_compile_options(learnopengl_helpers PRIVATE /W4 /WX)
+    target_compile_options(shaders_lib PRIVATE /W4 /WX)
 else()
-    target_compile_options(learnopengl_helpers PRIVATE -Wall -Wextra -pedantic -Werror)
+    target_compile_options(shaders_lib PRIVATE -Wall -Wextra -pedantic -Werror)
 endif()

@@ -1,2 +1,2 @@
 add_subdirectory(learnopengl_helpers)
-#add_subdirectory(shaders_lib)
+add_subdirectory(shaders_lib)
