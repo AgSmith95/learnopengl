@@ -77,7 +77,6 @@ int main()
     // tmp values
     double timeValue = 0.0f;
     float  greenValue = 0.0f;
-    int vertexColorLocation = -1;
     // RENDER LOOP
     while(!glfwWindowShouldClose(window()))
     {

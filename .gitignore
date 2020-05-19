@@ -6,5 +6,5 @@ external_libs/glfw/
 
 # CLion
 .idea/
-cmake-build-debug/
+cmake-build-*/
 
