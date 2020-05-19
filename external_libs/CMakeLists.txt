@@ -3,6 +3,12 @@ cmake_minimum_required(VERSION 3.13 FATAL_ERROR)
 # cloning dependencies
 find_package(Git REQUIRED)
 
+# LIBS_DIR
+set(
+        LIBS_DIR
+        ${CMAKE_CURRENT_SOURCE_DIR}
+)
+
 # GLFW 3.3
 # git clone glfw branch 3.3-stable
 set(
