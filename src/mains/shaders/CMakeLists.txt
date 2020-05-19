@@ -42,6 +42,20 @@ target_link_libraries(
         learnopengl_helpers
         shaders_lib
 )
+# "uniform location" and using library
+set(SHADERS_UNIFORM_LIB shaders_uniform_lib)
+add_executable(
+        ${SHADERS_UNIFORM_LIB}
+        shaders_uniform_lib.cpp
+)
+target_link_libraries(
+        ${SHADERS_UNIFORM_LIB}
+        OpenGL::GL
+        glfw
+        glad
+        learnopengl_helpers
+        shaders_lib
+)
 
 if(MSVC)
     target_compile_options(${SHADERS_EXE} PRIVATE /W4 /WX)

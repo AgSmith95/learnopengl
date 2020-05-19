@@ -98,3 +98,8 @@ void Shader::setFloat(const std::string& name, float value) const {
 Shader::~Shader() {
     glDeleteProgram(ID);
 }
+
+void Shader::setFloat4(const std::string& name, const std::array<float, 4>& value) const {
+    glUniform4f(glGetUniformLocation(ID, name.c_str()),
+            value[0], value[1], value[2], value[3]);
+}
