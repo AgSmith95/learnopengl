@@ -17,3 +17,23 @@ if(MSVC)
 else()
     target_compile_options(${UPSIDE_DOWN} PRIVATE -Wall -Wextra -pedantic -Werror)
 endif()
+
+# horizontal offset
+set(HORIZONTAL_OFFSET shaders_horizontal_offset)
+add_executable(
+        ${HORIZONTAL_OFFSET}
+        2_horizontal_offset.cpp
+)
+target_link_libraries(
+        ${HORIZONTAL_OFFSET}
+        OpenGL::GL
+        glfw
+        glad
+        learnopengl_helpers
+        shaders_lib
+)
+if(MSVC)
+    target_compile_options(${HORIZONTAL_OFFSET} PRIVATE /W4 /WX)
+else()
+    target_compile_options(${HORIZONTAL_OFFSET} PRIVATE -Wall -Wextra -pedantic -Werror)
+endif()
