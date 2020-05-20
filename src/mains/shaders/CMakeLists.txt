@@ -7,6 +7,9 @@ option(BUILD_SHADERS_ATTRIBUTES
 option(BUILD_SHADERS_USE_LIB
     "Build third part of Shaders training materials - using shaders lib"
     OFF)
+option(BUILD_SHADERS_EXERCISES
+    "Build exercises for Shaders tutorial"
+    ON)
 
 add_definitions(-DSHADERS_DIRECTORY="${SHADERS_DIRECTORY}")
 
@@ -90,4 +93,9 @@ if(MSVC)
     target_compile_options(${SHADERS_EXE} PRIVATE /W4 /WX)
 else()
     target_compile_options(${SHADERS_EXE} PRIVATE -Wall -Wextra -pedantic -Werror)
+endif()
+
+# Exercises
+if(BUILD_SHADERS_EXERCISES)
+    add_subdirectory(exercises)
 endif()
