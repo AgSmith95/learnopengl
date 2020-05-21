@@ -9,7 +9,7 @@ option(BUILD_SHADERS_USE_LIB
     OFF)
 option(BUILD_SHADERS_EXERCISES
     "Build exercises for Shaders tutorial"
-    ON)
+    OFF)
 
 add_definitions(-DSHADERS_DIRECTORY="${SHADERS_DIRECTORY}")
 

@@ -37,3 +37,23 @@ if(MSVC)
 else()
     target_compile_options(${HORIZONTAL_OFFSET} PRIVATE -Wall -Wextra -pedantic -Werror)
 endif()
+
+# vertex out fragment in
+set(VSH_OUT_FSH_IN 3_vertex_out_fragment_in)
+add_executable(
+        ${VSH_OUT_FSH_IN}
+        3_vertex_out_fragment_in.cpp
+)
+target_link_libraries(
+        ${VSH_OUT_FSH_IN}
+        OpenGL::GL
+        glfw
+        glad
+        learnopengl_helpers
+        shaders_lib
+)
+if(MSVC)
+    target_compile_options(${VSH_OUT_FSH_IN} PRIVATE /W4 /WX)
+else()
+    target_compile_options(${VSH_OUT_FSH_IN} PRIVATE -Wall -Wextra -pedantic -Werror)
+endif()
