@@ -1,3 +1,5 @@
+#ifndef POINT_HPP
+#define POINT_HPP
 
 template <typename T>
 struct Point2 {
@@ -50,3 +52,5 @@ using P3ui = Point3<unsigned int>;
 using P4f  = Point3<float>;
 using P4i  = Point3<int>;
 using P4ui = Point3<unsigned int>;
+
+#endif //POINT_HPP
