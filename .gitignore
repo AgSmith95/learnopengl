@@ -8,3 +8,5 @@ external_libs/glfw/
 .idea/
 cmake-build-*/
 
+# ignore patch files
+*.patch
