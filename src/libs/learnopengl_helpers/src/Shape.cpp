@@ -41,7 +41,8 @@ Shape::Shape(const float* vertices, size_t v_size, const unsigned int* indices, 
 }
 
 Shape::Shape(const std::vector<float>& vertices, const std::vector<unsigned int>& indices) :
-        Shape(vertices.data(), vertices.size(), indices.data(), indices.size()) {}
+        Shape(vertices.data(), vertices.size() * sizeof(float),
+              indices.data(), indices.size() * sizeof(float)) {}
 
 void Shape::Draw() const {
     if (VAO != 0) {
@@ -50,6 +51,7 @@ void Shape::Draw() const {
 }
 
 Shape::~Shape() {
+    // de-allocate all resources once they've outlived their purpose:
     if (VAO != 0) {
         glDeleteVertexArrays(1, &VAO);
     }
