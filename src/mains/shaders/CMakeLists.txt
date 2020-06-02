@@ -11,8 +11,6 @@ option(BUILD_SHADERS_EXERCISES
     "Build exercises for Shaders tutorial"
     OFF)
 
-add_definitions(-DSHADERS_DIRECTORY="${SHADERS_DIRECTORY}")
-
 # "uniform location" part
 if(BUILD_SHADERS_UNIFORM)
     set(SHADERS_UNIFORM_EXE shaders_uniform)
