@@ -4,6 +4,8 @@
 #include <glad/glad.h> // WARNING! INCLUDE BEFORE GLFW!!!
 #include <GLFW/glfw3.h>
 
+#include <stb_image.h>
+
 #include <helpers.h>
 #include <Shape.h>
 #include <Wrapper.h>

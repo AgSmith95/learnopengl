@@ -11,6 +11,7 @@ target_link_libraries(
         glad
         learnopengl_helpers
         shaders_lib
+        stb
 )
 if(MSVC)
     target_compile_options(${TEXTURES_EXE} PRIVATE /W4 /WX)
