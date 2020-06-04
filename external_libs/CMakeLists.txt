@@ -10,24 +10,11 @@ set(
 )
 
 # GLFW 3.3
-# git clone glfw branch 3.3-stable
-set(
-    GLFW33_COMMIT
-    0ac01338
-#    d9924933
-)
-message(
-    "CHECKING OUT 'GLFW' 3.3-stable ${GLFW33_COMMIT}"
-)
-execute_process(
-    COMMAND ${GIT_EXECUTABLE} clone
-    -b 3.3-stable https://github.com/glfw/glfw
+clone_git(
     ${LIBS_DIR}/glfw
-)
-# git reset to correct branch/commit
-execute_process(
-    WORKING_DIRECTORY ${LIBS_DIR}/glfw
-    COMMAND ${GIT_EXECUTABLE} reset --hard ${GLFW33_COMMIT}
+    https://github.com/glfw/glfw
+    "3.3-stable"
+    "0ac01338"
 )
 
 # do not build GLFW-related stuff
@@ -35,21 +22,15 @@ set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
 set(GLFW_INSTALL OFF)
-add_subdirectory(glfw)
+add_subdirectory(${LIBS_DIR}/glfw)
 # GLFW 3.3
 
 # stb
-message(
-    "CHECKING OUT 'stb' 3.3-stable f54acd4"
-)
-execute_process(
-    COMMAND ${GIT_EXECUTABLE} clone
-    https://github.com/nothings/stb.git
+clone_git(
     ${LIBS_DIR}/stb/tmp
-)
-execute_process(
-    WORKING_DIRECTORY ${LIBS_DIR}/stb/tmp
-    COMMAND ${GIT_EXECUTABLE} reset --hard f54acd4
+    https://github.com/nothings/stb.git
+    ""
+    "f54acd4"
 )
 
 copyfiles(
@@ -77,8 +58,6 @@ target_include_directories(
     PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/stb/include>
     PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/stb/src
 )
-#target_sources(stb INTERFACE ${STB_HEADER_FILES})
-# https://github.com/nothings/stb.git
 # stb
 
 add_subdirectory(glad)
