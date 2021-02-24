@@ -5,36 +5,59 @@ find_package(Git REQUIRED)
 
 # LIBS_DIR
 set(
-        LIBS_DIR
-        ${CMAKE_CURRENT_SOURCE_DIR}
+    LIBS_DIR
+    ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
 # GLFW 3.3
-# git clone glfw branch 3.3-stable
-set(
-        GLFW33_COMMIT
-        0ac01338
-#        d9924933
+clone_git(
+    ${LIBS_DIR}/glfw
+    https://github.com/glfw/glfw
+    "3.3-stable"
+    "0ac01338"
 )
-message(
-        "CHECKING OUT GLFW 3.3-stable ${GLFW33_COMMIT}"
-)
-execute_process(
-        COMMAND ${GIT_EXECUTABLE} clone
-        -b 3.3-stable https://github.com/glfw/glfw
-        ${LIBS_DIR}/glfw
-)
-# git reset to correct branch/commit
-execute_process(
-        WORKING_DIRECTORY ${LIBS_DIR}/glfw
-        COMMAND ${GIT_EXECUTABLE} reset --hard ${GLFW33_COMMIT}
-)
-# GLFW 3.3
 
+# do not build GLFW-related stuff
 set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
 set(GLFW_INSTALL OFF)
-add_subdirectory(glfw)
+add_subdirectory(${LIBS_DIR}/glfw)
+# GLFW 3.3
+
+# stb
+clone_git(
+    ${LIBS_DIR}/stb/tmp
+    https://github.com/nothings/stb.git
+    ""
+    "f54acd4"
+)
+
+copyfiles(
+    ${CMAKE_CURRENT_SOURCE_DIR}/stb/tmp
+    ${CMAKE_CURRENT_SOURCE_DIR}/stb/include
+    "*.h"
+)
+copyfiles(
+    ${CMAKE_CURRENT_SOURCE_DIR}/stb/tmp
+    ${CMAKE_CURRENT_SOURCE_DIR}/stb/src
+    "*.c"
+)
+
+FILE(
+    GLOB
+    STBLIB_SRC_FILES
+    ${CMAKE_CURRENT_SOURCE_DIR}/stb/src/*.c
+)
+add_library(
+    stb
+    ${STBLIB_SRC_FILES}
+)
+target_include_directories(
+    stb
+    PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/stb/include>
+    PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/stb/src
+)
+# stb
 
 add_subdirectory(glad)
