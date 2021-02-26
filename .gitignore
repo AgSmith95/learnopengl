@@ -3,6 +3,7 @@ build/
 
 # ignore libs
 external_libs/glfw/
+external_libs/glm/
 external_libs/stb/
 
 # CLion
