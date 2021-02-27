@@ -18,3 +18,24 @@ if(MSVC)
 else()
     target_compile_options(${ROTATE_TRANSFORM} PRIVATE -Wall -Wextra -pedantic -Werror)
 endif()
+
+# second container
+set(SECOND_CONTAINER second_container_ex2)
+add_executable(
+    ${SECOND_CONTAINER}
+    transformations_ex2.cpp
+)
+target_link_libraries(
+    ${SECOND_CONTAINER}
+    OpenGL::GL
+    glfw
+    glad
+    learnopengl_helpers
+    shaders_lib
+    stb
+)
+if(MSVC)
+    target_compile_options(${SECOND_CONTAINER} PRIVATE /W4 /WX)
+else()
+    target_compile_options(${SECOND_CONTAINER} PRIVATE -Wall -Wextra -pedantic -Werror)
+endif()
