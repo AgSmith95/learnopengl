@@ -39,3 +39,24 @@ if(MSVC)
 else()
     target_compile_options(${FOUR_FACES} PRIVATE -Wall -Wextra -pedantic -Werror)
 endif()
+
+# mix textures
+set(MIX_TEXTURES mix_textures_ex3)
+add_executable(
+    ${MIX_TEXTURES}
+    textures_exc3.cpp
+)
+target_link_libraries(
+    ${MIX_TEXTURES}
+    OpenGL::GL
+    glfw
+    glad
+    learnopengl_helpers
+    shaders_lib
+    stb
+)
+if(MSVC)
+    target_compile_options(${MIX_TEXTURES} PRIVATE /W4 /WX)
+else()
+    target_compile_options(${MIX_TEXTURES} PRIVATE -Wall -Wextra -pedantic -Werror)
+endif()
