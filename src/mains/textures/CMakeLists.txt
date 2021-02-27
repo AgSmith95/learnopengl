@@ -1,6 +1,6 @@
 option(BUILD_TEXTURES_EXERCISES
     "Build exercises for Shaders tutorial"
-    ON)
+    OFF)
 
 # FINAL
 set(TEXTURES_EXE textures)
