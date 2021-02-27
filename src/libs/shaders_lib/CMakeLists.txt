@@ -13,6 +13,7 @@ target_link_libraries(
         shaders_lib
         OpenGL::GL
         glfw
+        glm
         glad
 )
 target_include_directories(

@@ -60,4 +60,14 @@ target_include_directories(
 )
 # stb
 
+# glm
+clone_git(
+    ${LIBS_DIR}/glm/
+    https://github.com/g-truc/glm.git
+    ""
+    "6347f62261da5be4e27a256e28aef6abc0ba884d"
+)
+add_subdirectory(${LIBS_DIR}/glm)
+# glm
+
 add_subdirectory(glad)
