@@ -1,3 +1,7 @@
+option(BUILD_TRANSFORMATIONS_EXERCISES
+    "Build exercises for Transformations tutorial"
+    OFF)
+
 # FINAL
 set(TRANSFORMATIONS_EXE transformations)
 add_executable(
@@ -18,4 +22,9 @@ if(MSVC)
     target_compile_options(${TRANSFORMATIONS_EXE} PRIVATE /W4 /WX)
 else()
     target_compile_options(${TRANSFORMATIONS_EXE} PRIVATE -Wall -Wextra -pedantic -Werror)
+endif()
+
+# Exercises
+if(BUILD_TRANSFORMATIONS_EXERCISES)
+    add_subdirectory(exercises)
 endif()
