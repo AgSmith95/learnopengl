@@ -22,7 +22,7 @@ int main()
     // SHADERS
     Shader ourShader(
             SHADERS_DIRECTORY "textures/texture_vsh.vsh",
-            SHADERS_DIRECTORY "textures/texture_fsh.fsh"
+            SHADERS_DIRECTORY "textures/exercises/texture_ex1_fsh.fsh"
     );
 
     // SHAPE

@@ -13,6 +13,9 @@
 
 #include <Shaders.h>
 
+float mixIntensity = 0.2f;
+void processInputTextEx3(GLFWwindow *window);
+
 int main()
 {
     // Init GL by initializing Wrapper singleton
@@ -22,7 +25,7 @@ int main()
     // SHADERS
     Shader ourShader(
             SHADERS_DIRECTORY "textures/texture_vsh.vsh",
-            SHADERS_DIRECTORY "textures/texture_fsh.fsh"
+            SHADERS_DIRECTORY "textures/exercises/texture_ex3_fsh.fsh"
     );
 
     // SHAPE
@@ -129,7 +132,7 @@ int main()
     while(!glfwWindowShouldClose(window()))
     {
         // processing input
-        processInput(window());
+        processInputTextEx3(window());
 
         // render
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
@@ -143,6 +146,9 @@ int main()
 
         // use our shader
         ourShader.use();
+
+        // set mixIntensity
+        ourShader.setFloat("mixIntensity", mixIntensity);
 
         // draw shape
         glBindVertexArray(VAO);
@@ -161,4 +167,23 @@ int main()
     glDeleteBuffers(1, &EBO);
 
     return 0;
+}
+
+void processInputTextEx3(GLFWwindow *window)
+{
+    if(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+        glfwSetWindowShouldClose(window, true);
+
+    if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
+    {
+        mixIntensity += 0.01f; // change this value accordingly (might be too slow or too fast based on system hardware)
+        if(mixIntensity >= 1.0f)
+            mixIntensity = 1.0f;
+    }
+    if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
+    {
+        mixIntensity -= 0.01f; // change this value accordingly (might be too slow or too fast based on system hardware)
+        if (mixIntensity <= 0.0f)
+            mixIntensity = 0.0f;
+    }
 }
