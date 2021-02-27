@@ -1,6 +1,6 @@
 option(BUILD_TRANSFORMATIONS_EXERCISES
     "Build exercises for Transformations tutorial"
-    ON)
+    OFF)
 
 # FINAL
 set(TRANSFORMATIONS_EXE transformations)
