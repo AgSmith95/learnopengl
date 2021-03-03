@@ -18,3 +18,24 @@ if(MSVC)
 else()
     target_compile_options(${FOV_ASPECT} PRIVATE -Wall -Wextra -pedantic -Werror)
 endif()
+
+# View matrix tweaks
+set(VIEW_MATR coordinates_ex2)
+add_executable(
+    ${VIEW_MATR}
+    coordinates_ex2.cpp
+)
+target_link_libraries(
+    ${VIEW_MATR}
+    OpenGL::GL
+    glfw
+    glad
+    learnopengl_helpers
+    shaders_lib
+    stb
+)
+if(MSVC)
+    target_compile_options(${VIEW_MATR} PRIVATE /W4 /WX)
+else()
+    target_compile_options(${VIEW_MATR} PRIVATE -Wall -Wextra -pedantic -Werror)
+endif()
