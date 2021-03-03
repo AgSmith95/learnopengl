@@ -10,6 +10,10 @@ public:
     static Wrapper& getInstance();
     GLFWwindow* getWindow();
 
+    float getWidth() const;
+    float getHeight() const;
+    float getAspect() const;
+
     // delete copy constructor/assignment
     Wrapper(Wrapper&) = delete;
     Wrapper& operator=(Wrapper&) = delete;
@@ -19,6 +23,9 @@ public:
 
 private:
     GLFWwindow* window;
+
+    float m_width = 800.0;
+    float m_height = 600.0;
 
     Wrapper();
     ~Wrapper();
