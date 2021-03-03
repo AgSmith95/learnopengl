@@ -1,6 +1,6 @@
 option(BUILD_COORDINATES_EXERCISES
     "Build exercises for Coordinates tutorial"
-    OFF)
+    ON)
 
 # FINAL
 set(COORDINATES_EXE coordinates)
