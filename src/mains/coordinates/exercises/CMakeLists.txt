@@ -39,3 +39,24 @@ if(MSVC)
 else()
     target_compile_options(${VIEW_MATR} PRIVATE -Wall -Wextra -pedantic -Werror)
 endif()
+
+# Rotate only 1 cube
+set(ROTATE_ONE coordinates_ex3)
+add_executable(
+    ${ROTATE_ONE}
+    coordinates_ex3.cpp
+)
+target_link_libraries(
+    ${ROTATE_ONE}
+    OpenGL::GL
+    glfw
+    glad
+    learnopengl_helpers
+    shaders_lib
+    stb
+)
+if(MSVC)
+    target_compile_options(${ROTATE_ONE} PRIVATE /W4 /WX)
+else()
+    target_compile_options(${ROTATE_ONE} PRIVATE -Wall -Wextra -pedantic -Werror)
+endif()
