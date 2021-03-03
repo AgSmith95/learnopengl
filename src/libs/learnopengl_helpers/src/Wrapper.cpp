@@ -14,7 +14,7 @@ Wrapper::Wrapper() {
     //glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // For MacOS
 
     // create window
-    window = glfwCreateWindow(800, 600, "LearnOpenGL", nullptr, nullptr);
+    window = glfwCreateWindow(static_cast<int>(m_width), static_cast<int>(m_height), "LearnOpenGL", nullptr, nullptr);
     if (window == nullptr)
     {
         throw std::runtime_error("Failed to create GLFW window");
@@ -44,6 +44,18 @@ Wrapper& Wrapper::getInstance() {
 
 GLFWwindow* Wrapper::getWindow() {
     return window;
+}
+
+float Wrapper::getWidth() const {
+    return m_width;
+}
+
+float Wrapper::getHeight() const {
+    return m_height;
+}
+
+float Wrapper::getAspect() const {
+    return m_width / m_height;
 }
 
 // Get Wrapper's GLFWwindow
