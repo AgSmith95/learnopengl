@@ -1,3 +1,7 @@
+option(BUILD_ROTATING_CUBES
+        "Build rotating cubes"
+        OFF)
+
 # try new things here
 add_definitions(-DSHADERS_DIRECTORY="${SHADERS_DIRECTORY}")
 
@@ -18,4 +22,9 @@ if(MSVC)
     target_compile_options(${EXPERIMENTS} PRIVATE /W4 /WX)
 else()
     target_compile_options(${EXPERIMENTS} PRIVATE -Wall -Wextra -pedantic -Werror)
+endif()
+
+# Rotating cubes
+if(BUILD_ROTATING_CUBES)
+    add_subdirectory(rotating_cubes)
 endif()
