@@ -7,7 +7,6 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
 
-#include <helpers.h>
 #include <Shape.h>
 #include <Wrapper.h>
 
@@ -16,6 +15,15 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+
+float deltaTime = 0.0f;
+float lastFrame = 0.0f;
+
+glm::vec3 cameraPos   = glm::vec3(0.0f, 0.0f,  3.0f);
+glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
+glm::vec3 cameraUp    = glm::vec3(0.0f, 1.0f,  0.0f);
+
+void processInput(GLFWwindow *window);
 
 int main()
 {
@@ -174,6 +182,12 @@ int main()
     // RENDER LOOP
     while(!glfwWindowShouldClose(Window))
     {
+        // per-frame time logic
+        // --------------------
+        float currentFrame = (float)glfwGetTime();
+        deltaTime = currentFrame - lastFrame;
+        lastFrame = currentFrame;
+
         // processing input
         processInput(Window);
 
@@ -192,14 +206,13 @@ int main()
         ourShader.use();
 
         // create transformations
-        auto time = (float)glfwGetTime();
-
-        const float radius = 5.0f;
-        float camX = sin(time) * radius;
-        float camZ = cos(time) * radius;
-        glm::mat4 view = glm::lookAt(glm::vec3(camX, 0.0, camZ), // position
-                                     glm::vec3(0.0, 0.0, 0.0),   // direction
-                                     glm::vec3(0.0, 1.0, 0.0));  // up axis
+//        const float radius = 5.0f;
+//        float camX = sin(currentFrame) * radius;
+//        float camZ = cos(currentFrame) * radius;
+//        glm::mat4 view = glm::lookAt(glm::vec3(camX, 0.0, camZ), // position
+//                                     glm::vec3(0.0, 0.0, 0.0),   // direction
+//                                     glm::vec3(0.0, 1.0, 0.0));  // up axis
+        glm::mat4 view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
         ourShader.setMat4("view", view);
 
         // render boxes
@@ -209,7 +222,7 @@ int main()
             glm::mat4 model = glm::mat4(1.0f);
             model = glm::translate(model, cubePositions[i]);
             float angle = 20.0f * static_cast<float>(i);
-            model = glm::rotate(model, glm::radians(angle) + time, glm::vec3(1.0f, 0.3f, 0.5f));
+            model = glm::rotate(model, glm::radians(angle) + currentFrame, glm::vec3(1.0f, 0.3f, 0.5f));
             ourShader.setMat4("model", model);
 
             glDrawArrays(GL_TRIANGLES, 0, 36);
@@ -227,4 +240,22 @@ int main()
     glDeleteBuffers(1, &VBO);
 
     return 0;
+}
+
+void processInput(GLFWwindow *window) {
+    const float cameraSpeed = 2.5f * deltaTime; // adjust accordingly
+    if(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+        glfwSetWindowShouldClose(window, true);
+    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+        cameraPos += cameraSpeed * cameraFront;
+    if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+        cameraPos -= cameraSpeed * cameraFront;
+    if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+        cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+    if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+        cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+    if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS)
+        cameraPos += cameraSpeed * cameraUp;
+    if (glfwGetKey(window, GLFW_KEY_C) == GLFW_PRESS)
+        cameraPos -= cameraSpeed * cameraUp;
 }
