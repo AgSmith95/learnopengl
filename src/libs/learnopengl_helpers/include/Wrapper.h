@@ -14,6 +14,9 @@ public:
     float getHeight() const;
     float getAspect() const;
 
+    // change window size
+    void setWindowSize(int width, int height);
+
     // delete copy constructor/assignment
     Wrapper(Wrapper&) = delete;
     Wrapper& operator=(Wrapper&) = delete;
