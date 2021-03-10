@@ -25,11 +25,25 @@ glm::vec3 cameraUp    = glm::vec3(0.0f, 1.0f,  0.0f);
 
 void processInput(GLFWwindow *window);
 
+float lastX = 400.0f;
+float lastY = 300.0f;
+float yaw = -90.0f;
+float pitch = 0.0f;
+void mouse_callback(GLFWwindow* window, double xpos, double ypos);
+
+float fov = 45.0f;
+void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
+
 int main()
 {
     // Init GL by initializing Wrapper singleton
     auto Window = window(); // not very elegant, yeah
 //    Wrapper::getInstance().setWindowSize(540, 960);
+    lastX = Wrapper::getInstance().getWidth() / 2;
+    lastY = Wrapper::getInstance().getHeight() / 2;
+    glfwSetInputMode(Window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    glfwSetCursorPosCallback(Window, mouse_callback);
+    glfwSetScrollCallback(Window, scroll_callback);
 
     // configure global opengl state
     // -----------------------------
@@ -173,12 +187,6 @@ int main()
     ourShader.setInt("texture1", 0);
     ourShader.setInt("texture2", 1);
 
-    // generate unchanging projection matrix
-    glm::mat4 projection    = glm::mat4(1.0f);
-    projection = glm::perspective(glm::radians(45.0f), Wrapper::getInstance().getAspect(), 0.1f, 100.0f);
-    // set projection matrix in the Shader
-    ourShader.setMat4("projection", projection);
-
     // RENDER LOOP
     while(!glfwWindowShouldClose(Window))
     {
@@ -204,6 +212,10 @@ int main()
 
         // activate shader
         ourShader.use();
+
+        // generate projection matrix
+        glm::mat4 projection = glm::perspective(glm::radians(fov), Wrapper::getInstance().getAspect(), 0.1f, 100.0f);
+        ourShader.setMat4("projection", projection); // set projection matrix in the Shader
 
         // create transformations
 //        const float radius = 5.0f;
@@ -244,8 +256,15 @@ int main()
 
 void processInput(GLFWwindow *window) {
     const float cameraSpeed = 2.5f * deltaTime; // adjust accordingly
-    if(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+    if(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
         glfwSetWindowShouldClose(window, true);
+//        if (glfwGetInputMode(window, GLFW_CURSOR) == GLFW_CURSOR_DISABLED) {
+//            glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+//        }
+//        else {
+//            glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+//        }
+    }
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
         cameraPos += cameraSpeed * cameraFront;
     if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
@@ -258,4 +277,46 @@ void processInput(GLFWwindow *window) {
         cameraPos += cameraSpeed * cameraUp;
     if (glfwGetKey(window, GLFW_KEY_C) == GLFW_PRESS)
         cameraPos -= cameraSpeed * cameraUp;
+}
+
+void *p = nullptr;
+void mouse_callback(GLFWwindow* window, double xpos, double ypos) {
+    p = window; // need this to use variable window
+                // facepalm
+
+    float xoffset = static_cast<float>(xpos) - lastX;
+    float yoffset = static_cast<float>(lastY) - ypos; // reversed since y-coordinates range from bottom to top
+    lastX = static_cast<float>(xpos);
+    lastY = static_cast<float>(ypos);
+
+    float sensitivity = 0.1f;
+    xoffset *= sensitivity;
+    yoffset *= sensitivity;
+
+    yaw   += xoffset;
+    pitch += yoffset;
+
+    if(pitch > 89.0f)
+        pitch =  89.0f;
+    if(pitch < -89.0f)
+        pitch = -89.0f;
+
+    // calculate new direction vector
+    glm::vec3 direction;
+    direction.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
+    direction.y = sin(glm::radians(pitch));
+    direction.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
+    cameraFront = glm::normalize(direction);
+}
+
+void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
+{
+    p = window; // need this to use variable window
+                // facepalm
+
+    fov -= (float)(yoffset + 0.0*xoffset);
+    if (fov < 1.0f)
+        fov = 1.0f;
+    if (fov > 60.0f)
+        fov = 60.0f;
 }
