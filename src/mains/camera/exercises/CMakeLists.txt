@@ -12,6 +12,7 @@ target_link_libraries(
     glad
     learnopengl_helpers
     shaders_lib
+    camera_lib
     stb
 )
 if(MSVC)
