@@ -58,6 +58,12 @@ float Wrapper::getAspect() const {
     return m_width / m_height;
 }
 
+void Wrapper::setWindowSize(int width, int height) {
+    m_width = static_cast<float>(width);
+    m_height = static_cast<float>(height);
+    glfwSetWindowSize(window, width, height);
+}
+
 // Get Wrapper's GLFWwindow
 GLFWwindow* window() {
     return Wrapper::getInstance().getWindow();
