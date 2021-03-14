@@ -25,7 +25,7 @@ if(false)
     endif()
 endif()
 
-if(true)
+if(false)
     set(ROTATING_BLUE_CUBE rotate_blue_cube)
     add_executable(
             ${ROTATING_BLUE_CUBE}
@@ -44,5 +44,27 @@ if(true)
         target_compile_options(${ROTATING_BLUE_CUBE} PRIVATE /W4 /WX)
     else()
         target_compile_options(${ROTATING_BLUE_CUBE} PRIVATE -Wall -Wextra -pedantic -Werror)
+    endif()
+endif()
+
+if(true)
+    set(ROTATING_LOGO_CUBE rotate_logo_cube)
+    add_executable(
+            ${ROTATING_LOGO_CUBE}
+            ROTATING_LOGO_CUBE.cpp
+    )
+    target_link_libraries(
+            ${ROTATING_LOGO_CUBE}
+            OpenGL::GL
+            glfw
+            glad
+            learnopengl_helpers
+            shaders_lib
+            stb
+    )
+    if(MSVC)
+        target_compile_options(${ROTATING_LOGO_CUBE} PRIVATE /W4 /WX)
+    else()
+        target_compile_options(${ROTATING_LOGO_CUBE} PRIVATE -Wall -Wextra -pedantic -Werror)
     endif()
 endif()
