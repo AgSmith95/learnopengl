@@ -3,7 +3,20 @@ set(ROTATING_CUBES_DIR
 )
 add_definitions(-DROTATING_CUBES_DIR="${ROTATING_CUBES_DIR}")
 
-if(false)
+option(BUILD_ROTATING_CUBE1
+        "Build blue cube"
+        ON)
+option(BUILD_BLUE_CUBE
+        "Build blue cube"
+        ON)
+option(BUILD_LOGO_CUBE
+        "Build logo cube"
+        ON)
+option(BUILD_CHALLENGE_CUBES
+        "Build logo cube"
+        ON)
+
+if(BUILD_ROTATING_CUBE1)
     set(ROTATING_CUBES rotating_cubes)
     add_executable(
         ${ROTATING_CUBES}
@@ -25,7 +38,7 @@ if(false)
     endif()
 endif()
 
-if(false)
+if(BUILD_BLUE_CUBE)
     set(ROTATING_BLUE_CUBE rotate_blue_cube)
     add_executable(
             ${ROTATING_BLUE_CUBE}
@@ -47,7 +60,7 @@ if(false)
     endif()
 endif()
 
-if(true)
+if(BUILD_LOGO_CUBE)
     set(ROTATING_LOGO_CUBE rotate_logo_cube)
     add_executable(
             ${ROTATING_LOGO_CUBE}
@@ -67,4 +80,8 @@ if(true)
     else()
         target_compile_options(${ROTATING_LOGO_CUBE} PRIVATE -Wall -Wextra -pedantic -Werror)
     endif()
+endif()
+
+if (BUILD_CHALLENGE_CUBES)
+    add_subdirectory(challenge_cubes)
 endif()
