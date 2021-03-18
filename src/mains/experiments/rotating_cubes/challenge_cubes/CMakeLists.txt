@@ -16,6 +16,7 @@ target_link_libraries(
         learnopengl_helpers
         shaders_lib
         stb
+        camera_lib
 )
 if(MSVC)
     target_compile_options(${CHALLENGE_CUBES} PRIVATE /W4 /WX)
