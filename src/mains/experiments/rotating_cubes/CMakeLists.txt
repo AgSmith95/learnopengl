@@ -84,4 +84,5 @@ endif()
 
 if (BUILD_CHALLENGE_CUBES)
     add_subdirectory(challenge_cubes)
+    add_subdirectory(traffic_lights)
 endif()
