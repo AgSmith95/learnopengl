@@ -1,8 +1,4 @@
-add_subdirectory(hello_triangle)
-add_subdirectory(shaders)
-add_subdirectory(textures)
-add_subdirectory(experiments)
-add_subdirectory(transformations)
-add_subdirectory(coordinates)
-add_subdirectory(camera)
+add_subdirectory(getting_started)
 add_subdirectory(lighting)
+
+add_subdirectory(experiments)
