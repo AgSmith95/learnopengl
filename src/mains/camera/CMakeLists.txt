@@ -1,6 +1,6 @@
 option(BUILD_CAMERA_EXERCISES
     "Build exercises for Camera tutorial"
-    OFF)
+    ON)
 
 # FINAL
 set(CAMERA_EXE camera)
@@ -16,6 +16,7 @@ target_link_libraries(
     glad
     learnopengl_helpers
     shaders_lib
+    camera_lib
     stb
 )
 if(MSVC)
