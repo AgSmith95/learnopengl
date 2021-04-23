@@ -1,6 +1,6 @@
 option(BUILD_CAMERA_EXERCISES
     "Build exercises for Camera tutorial"
-    ON)
+    OFF)
 
 # FINAL
 set(CAMERA_EXE camera)
