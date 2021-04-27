@@ -1,6 +1,6 @@
 option(BUILD_BASIC_LIGHTING_EXERCISES
     "Build exercises for Basic lighting tutorial"
-    ON)
+    OFF)
 
 # FINAL
 set(BASIC_LIGHTING_EXE basic_lighting)
