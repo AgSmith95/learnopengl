@@ -43,3 +43,26 @@ if(MSVC)
 else()
     target_compile_options(${BL_EX3_EXE} PRIVATE -Wall -Wextra -pedantic -Werror)
 endif()
+
+# Exercise 4: Gouraud - Phong in vertex shader
+set(BL_EX4_EXE basic_lighting_ex4)
+add_executable(
+    ${BL_EX4_EXE}
+    bl_ex4.cpp
+)
+target_link_libraries(
+    ${BL_EX4_EXE}
+    OpenGL::GL
+    glfw
+    glm
+    glad
+    learnopengl_helpers
+    shaders_lib
+    camera_lib
+    stb
+)
+if(MSVC)
+    target_compile_options(${BL_EX4_EXE} PRIVATE /W4 /WX)
+else()
+    target_compile_options(${BL_EX4_EXE} PRIVATE -Wall -Wextra -pedantic -Werror)
+endif()
