@@ -1,6 +1,6 @@
-#option(MATERIALS_EXERCISES
-#    "Build exercises for Basic lighting tutorial"
-#    OFF)
+option(MATERIALS_EXERCISES
+    "Build exercises for Basic lighting tutorial"
+    OFF)
 
 # FINAL
 set(MATERIALS_EXE materials)
@@ -26,6 +26,6 @@ else()
 endif()
 
 # Exercises
-#if(MATERIALS_EXERCISES)
-#    add_subdirectory(exercises)
-#endif()
+if(MATERIALS_EXERCISES)
+    add_subdirectory(exercises)
+endif()
