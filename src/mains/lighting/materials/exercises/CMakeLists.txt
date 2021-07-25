@@ -20,3 +20,25 @@ if(MSVC)
 else()
     target_compile_options(${MATERIALS_EX1_EXE} PRIVATE -Wall -Wextra -pedantic -Werror)
 endif()
+
+set(MATERIALS_EX2_EXE materials_ex2)
+add_executable(
+    ${MATERIALS_EX2_EXE}
+    materials_ex2.cpp
+)
+target_link_libraries(
+    ${MATERIALS_EX2_EXE}
+    OpenGL::GL
+    glfw
+    glm
+    glad
+    learnopengl_helpers
+    shaders_lib
+    camera_lib
+    stb
+)
+if(MSVC)
+    target_compile_options(${MATERIALS_EX2_EXE} PRIVATE /W4 /WX)
+else()
+    target_compile_options(${MATERIALS_EX2_EXE} PRIVATE -Wall -Wextra -pedantic -Werror)
+endif()
