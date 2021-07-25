@@ -22,6 +22,7 @@ target_link_libraries(
     OpenGL::GL
     glfw
     glad
+    stb
 )
 target_include_directories(
     learnopengl_helpers
