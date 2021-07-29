@@ -23,4 +23,6 @@ struct DrawInfo {
 void DrawElements(const DrawInfo& di);
 void DrawTriangles(const DrawInfo& di);
 
+unsigned int loadTexture(char const * path);
+
 #endif //LEARNOPENGL_HELPERS_H
