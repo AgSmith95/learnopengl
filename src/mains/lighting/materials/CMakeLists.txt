@@ -1,5 +1,5 @@
-option(MATERIALS_EXERCISES
-    "Build exercises for Basic lighting tutorial"
+option(BUILD_MATERIALS_EXERCISES
+    "Build exercises for Materials tutorial"
     OFF)
 
 # FINAL

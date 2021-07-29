@@ -1,5 +1,5 @@
-#option(LIGHTING_MAPS_EXERCISES
-#    "Build exercises for Basic lighting tutorial"
+#option(BUILD_LIGHTING_MAPS_EXERCISES
+#    "Build exercises for Lighting maps tutorial"
 #    OFF)
 
 # FINAL
