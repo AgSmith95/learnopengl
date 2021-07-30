@@ -1,6 +1,6 @@
-#option(BUILD_LIGHTING_MAPS_EXERCISES
-#    "Build exercises for Lighting maps tutorial"
-#    OFF)
+option(BUILD_LIGHTING_MAPS_EXERCISES
+    "Build exercises for Lighting maps tutorial"
+    ON)
 
 # FINAL
 set(LIGHTING_MAPS_EXE lighting_maps)
@@ -26,6 +26,6 @@ else()
 endif()
 
 # Exercises
-#if(LIGHTING_MAPS_EXERCISES)
-#    add_subdirectory(exercises)
-#endif()
+if(BUILD_LIGHTING_MAPS_EXERCISES)
+    add_subdirectory(exercises)
+endif()
